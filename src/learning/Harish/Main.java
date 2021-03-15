@@ -28,17 +28,30 @@ public class Main {
                     String color = command[2];
                     Car car = new Car(registrationNo, color);
                     int slotNo = 0;
-                    for (ParkingSlot slot : parkingSlotList) {
-                        if (slot.getParkedCar() == null) {
-                            slot.setParkedCar(car);
-                            slotNo = slot.getSlotNo();
+                    boolean carAvailable = false;
+                    for(ParkingSlot slot : parkingSlotList) {
+                        if(car.equals(slot.getParkedCar())) {
+                            carAvailable = true;
                             break;
                         }
                     }
-                    if (slotNo > 0) {
-                        System.out.println("Car parked at slot number " + slotNo);
+
+                    if(!carAvailable) {
+                        for (ParkingSlot slot : parkingSlotList) {
+                            if (slot.getParkedCar() == null) {
+                                slot.setParkedCar(car);
+                                slotNo = slot.getSlotNo();
+                                break;
+                            }
+                        }
+                        if (slotNo > 0) {
+                            System.out.println("Car parked at slot number " + slotNo);
+                        } else {
+                            System.out.println("Sorry, Parking is full");
+                        }
                     } else {
-                        System.out.println("Sorry, Parking is full");
+                        System.out.println("Car with registration number is already been parked." +
+                                " Provide valid registration no");
                     }
                     break;
                 case "LEAVE":
@@ -61,7 +74,8 @@ public class Main {
                     color = command[1];
                     System.out.println("Registration Nos for car with color "+color);
                     for(ParkingSlot parkingSlot : parkingSlotList) {
-                        if(parkingSlot.getParkedCar().getColor().equalsIgnoreCase(color)) {
+                        if(parkingSlot.getParkedCar()!=null
+                                && parkingSlot.getParkedCar().getColor().equalsIgnoreCase(color)) {
                             System.out.println(parkingSlot.getParkedCar().getRegistrationNo());
                         }
                     }
