@@ -15,42 +15,62 @@ public class Main {
             command = scanner.nextLine().split(" ");
             switch (command[0].toUpperCase()) {
                 case "CREATE_PARKING_LOT":
-                    int numberOfLots = Integer.parseInt(command[1]);
-                    CreateParkingLot createParkingLot = new CreateParkingLot();
-                    createParkingLot.setNumberOfSlots(numberOfLots);
-                    createParkingLot.doOperation(parkingSlotList);
+                    try {
+                        int numberOfLots = Integer.parseInt(command[1]);
+                        CreateParkingLot createParkingLot = new CreateParkingLot();
+                        createParkingLot.setNumberOfSlots(numberOfLots);
+                        createParkingLot.doOperation(parkingSlotList);
+                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                        System.out.println("Provide valid slot count");
+                    }
                     break;
                 case "PARK":
-                    String registrationNo = command[1];
-                    String color = command[2];
-                    Car car = new Car(registrationNo,color);
-                    Park park = new Park();
-                    park.setCar(car);
-                    park.doOperation(parkingSlotList);
+                    try {
+                        String registrationNo = command[1];
+                        String color = command[2];
+                        Car car = new Car(registrationNo,color);
+                        Park park = new Park();
+                        park.setCar(car);
+                        park.doOperation(parkingSlotList);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Provide valid car details(RegistrationNo and color)");
+                    }
                     break;
                 case "LEAVE":
-                    int slotNo = Integer.parseInt(command[1]);
-                    Leave leave = new Leave();
-                    leave.setSlotNo(slotNo);
-                    leave.doOperation(parkingSlotList);
+                    try {
+                        int slotNo = Integer.parseInt(command[1]);
+                        Leave leave = new Leave();
+                        leave.setSlotNo(slotNo);
+                        leave.doOperation(parkingSlotList);
+                    } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                        System.out.println("Invalid slot number");
+                    }
                     break;
                 case "STATUS":
                     Status status = new Status();
                     status.doOperation(parkingSlotList);
                     break;
                 case "REGISTRATION_NUMBERS_FOR_CAR_WITH_COLOR":
-                    color = command[1];
-                    RegistrationNumbersByColor registrationNumbersByColor =
-                            new RegistrationNumbersByColor();
-                    registrationNumbersByColor.setColor(color);
-                    registrationNumbersByColor.doOperation(parkingSlotList);
+                    try {
+                        String color = command[1];
+                        RegistrationNumbersByColor registrationNumbersByColor =
+                                new RegistrationNumbersByColor();
+                        registrationNumbersByColor.setColor(color);
+                        registrationNumbersByColor.doOperation(parkingSlotList);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Provide a color");
+                    }
                     break;
                 case "SLOT_NUMBER_FOR_REGISTRATION_NUMBER":
-                    registrationNo = command[1];
-                    SlotNumberByRegistrationNumber slotNumberByRegistrationNumber =
-                            new SlotNumberByRegistrationNumber();
-                    slotNumberByRegistrationNumber.setRegistrationNo(registrationNo);
-                    slotNumberByRegistrationNumber.doOperation(parkingSlotList);
+                    try {
+                        String registrationNo = command[1];
+                        SlotNumberByRegistrationNumber slotNumberByRegistrationNumber =
+                                new SlotNumberByRegistrationNumber();
+                        slotNumberByRegistrationNumber.setRegistrationNo(registrationNo);
+                        slotNumberByRegistrationNumber.doOperation(parkingSlotList);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Provide registration number");
+                    }
                     break;
                 case "EXIT":
                     EnterParking = false;

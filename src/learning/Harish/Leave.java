@@ -10,8 +10,9 @@ public class Leave implements Operations{
     }
 
     @Override
-    public void doOperation(List<ParkingSlot> parkingSlotList) {
+    public void doOperation(List<ParkingSlot> parkingSlotList) throws IndexOutOfBoundsException{
         ParkingSlot slot = parkingSlotList.get(slotNo - 1);
         slot.setParkedCar(null);
+        System.out.println("Slot "+slotNo+" is free");
     }
 }
