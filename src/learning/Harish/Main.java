@@ -11,6 +11,11 @@ public class Main {
     public static void main(String[] args) {
         String[] command;
         boolean EnterParking = true;
+        System.out.println("Follow commands: \n 1.create_parking_lot no_of_slots \n" +
+                "2.park regNo color \n 3.leave slotNo \n 4.status\n " +
+                "5.registration_numbers_for_car_with_color color\n " +
+                "6.slot_number_for_registration_number regNo\n" +
+                "7.slot_numbers_for_cars_with_color color \n 8.exit");
         while (EnterParking) {
             System.out.println("Enter command : ");
             command = scanner.nextLine().split(" ");
