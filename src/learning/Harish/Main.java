@@ -1,6 +1,7 @@
 package learning.Harish;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -27,12 +28,13 @@ public class Main {
                 case "PARK":
                     try {
                         String registrationNo = command[1];
+                        validateRegistrationNumber(registrationNo);
                         String color = command[2];
                         Car car = new Car(registrationNo,color);
                         Park park = new Park();
                         park.setCar(car);
                         park.doOperation(parkingSlotList);
-                    } catch (IndexOutOfBoundsException e) {
+                    } catch (IndexOutOfBoundsException | InputMismatchException e) {
                         System.out.println("Provide valid car details(RegistrationNo and color)");
                     }
                     break;
@@ -64,12 +66,13 @@ public class Main {
                 case "SLOT_NUMBER_FOR_REGISTRATION_NUMBER":
                     try {
                         String registrationNo = command[1];
+                        validateRegistrationNumber(registrationNo);
                         SlotNumberByRegistrationNumber slotNumberByRegistrationNumber =
                                 new SlotNumberByRegistrationNumber();
                         slotNumberByRegistrationNumber.setRegistrationNo(registrationNo);
                         slotNumberByRegistrationNumber.doOperation(parkingSlotList);
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("Provide registration number");
+                    } catch (IndexOutOfBoundsException | InputMismatchException e) {
+                        System.out.println("Provide valid registration number");
                     }
                     break;
                 case "EXIT":
@@ -78,6 +81,15 @@ public class Main {
                 default:
                     System.out.println("INVALID INPUT");
             }
+        }
+    }
+
+    public static void validateRegistrationNumber(String input) throws InputMismatchException{
+        boolean b2= Pattern.compile("^[A-Za-z]{1,2}-[0-9]{1,2}-[A-Za-z]{1,2}-[0-9]{1,4}$")
+                           .matcher(input)
+                           .matches();
+        if(!b2) {
+            throw new InputMismatchException("Invalid registration number format");
         }
     }
 }
