@@ -75,6 +75,17 @@ public class Main {
                         System.out.println("Provide valid registration number");
                     }
                     break;
+                case "SLOT_NUMBERS_FOR_CARS_WITH_COLOR":
+                    try {
+                        String color = command[1];
+                        SlotNumbersOfCarsByColor slotNumbersOfCarsByColor =
+                                new SlotNumbersOfCarsByColor();
+                        slotNumbersOfCarsByColor.setColor(color);
+                        slotNumbersOfCarsByColor.doOperation(parkingSlotList);
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Provide a color");
+                    }
+                    break;
                 case "EXIT":
                     EnterParking = false;
                     break;
